@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, output } from '@angular/core';
 
 @Component({
   selector: 'cdev-category',
@@ -16,10 +16,9 @@ export class CategoryComponent {
     { categoryId: 5, name: 'Toys' },
   ];
 
-  @Output() categorySelected = new EventEmitter<number>();
+  categorySelected = output<number>();
 
   selectCategory(categoryId: number) {
     this.categorySelected.emit(categoryId);
-    console.log('Category selected:', categoryId);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, computed, input, output } from '@angular/core';
 
 @Component({
   selector: 'cdev-product-list',
@@ -8,7 +8,10 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrl: './product-list.component.css',
 })
 export class ProductListComponent {
-  @Output() productSelected = new EventEmitter<any>();
+  productSelected = output<any>();
+
+  //categorySelected = input<number>(0);
+  categorySelected = input.required<number>();
 
   products = [
     {
@@ -118,20 +121,15 @@ export class ProductListComponent {
     },
   ];
 
-  productsByCategory: any[] = [];
+  productsByCategory = computed(() => {
+    return this.products.filter(
+      (product) => product.categoryId === this.categorySelected()
+    );
+  });
 
-  constructor() {}
 
   selectProduct(product: any) {
     console.log('Product selected:', product);
     this.productSelected.emit(product);
-  }
-
-  listProducts(categoryId: number) {
-    console.log('===================');
-    console.log('Category selected:', categoryId);
-    this.productsByCategory = this.products.filter(
-      (product) => product.categoryId === categoryId
-    );
   }
 }

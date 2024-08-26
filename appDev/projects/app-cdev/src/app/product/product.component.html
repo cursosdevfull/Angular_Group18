@@ -2,17 +2,17 @@
   <div class="zone">
     <cdev-category
       (categorySelected)="
-        ProductList.listProducts($event); ProductDetail.details = null
+        categorySelected.set($event); productSelected.set(null)
       "
     ></cdev-category>
   </div>
   <div class="zone">
     <cdev-product-list
-      #ProductList
-      (productSelected)="ProductDetail.details = $event"
+      [categorySelected]="categorySelected()"
+      (productSelected)="productSelected.set($event)"
     ></cdev-product-list>
   </div>
   <div class="zone">
-    <cdev-product-detail #ProductDetail></cdev-product-detail>
+    <cdev-product-detail [details]="productSelected()"></cdev-product-detail>
   </div>
 </div>
