@@ -1,0 +1,34 @@
+<h1>{{ getTitle() }}</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Lista de cursos</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (curso of getCourses(); track $index) {
+    <tr>
+      <td>{{ $index }} - {{ curso }}</td>
+    </tr>
+    }
+
+    <!--     <tr *ngFor="let curso of cursos">
+      <td>{{ curso.toUpperCase() }}</td>
+    </tr> -->
+    <!--     <tr>
+      <td>Microfrontends con Angular</td>
+    </tr>
+    <tr>
+      <td>Infrastructura como código</td>
+    </tr> -->
+  </tbody>
+</table>
+
+<div>
+  <p>Sumando1: {{ sumando1() }}</p>
+  <p>Sumando2: {{ sumando2() }}</p>
+  <p>Resultado: {{ resultado() }}</p>
+</div>
+<div>Results = {{ resultList.join(",") }}</div>
+
+<div>Message: {{ displayMessage() }}</div>

@@ -91,6 +91,39 @@
           }
         }
       }
+    },
+    "appCDevLib": {
+      "projectType": "library",
+      "root": "projects/app-cdev-lib",
+      "sourceRoot": "projects/app-cdev-lib/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/app-cdev-lib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/app-cdev-lib/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/app-cdev-lib/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/app-cdev-lib/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
     }
   }
 }
