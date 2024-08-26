@@ -1,10 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'cdev-product-list',
@@ -14,7 +8,6 @@ import {
   styleUrl: './product-list.component.css',
 })
 export class ProductListComponent {
-  @Input() categorySelected!: number;
   @Output() productSelected = new EventEmitter<any>();
 
   products = [
@@ -128,16 +121,6 @@ export class ProductListComponent {
   productsByCategory: any[] = [];
 
   constructor() {}
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['categorySelected']) {
-      this.listProducts(changes['categorySelected'].currentValue);
-    }
-  }
-
-  ngOnInit() {
-    this.listProducts(this.categorySelected);
-  }
 
   selectProduct(product: any) {
     console.log('Product selected:', product);

@@ -1,82 +1,18 @@
 <div class="container">
   <div class="zone">
     <cdev-category
-      (categorySelected)="setCategorySelected($event)"
+      (categorySelected)="
+        ProductList.listProducts($event); ProductDetail.details = null
+      "
     ></cdev-category>
   </div>
   <div class="zone">
     <cdev-product-list
-      [categorySelected]="categorySelectedId"
-      (productSelected)="setProductSelected($event)"
+      #ProductList
+      (productSelected)="ProductDetail.details = $event"
     ></cdev-product-list>
   </div>
   <div class="zone">
-    <cdev-product-detail [product]="productSelected"></cdev-product-detail>
+    <cdev-product-detail #ProductDetail></cdev-product-detail>
   </div>
 </div>
-
-<!-- <div class="container">
-  <div class="zone">
-    <h2>Categorías</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nombre</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (category of categories; track category.categoryId) {
-        <tr>
-          <td>{{ category.categoryId }}</td>
-          <td>{{ category.name }}</td>
-          <td>
-            <button (click)="productList(category.categoryId)">
-              Seleccionar categoría
-            </button>
-          </td>
-        </tr>
-        }
-      </tbody>
-    </table>
-  </div>
-  <div class="zone">
-    <h2>Productos</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nombre</th>
-          <th>Precio</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (product of productsByCategory; track product.productId) {
-        <tr>
-          <td>{{ product.productId }}</td>
-          <td>{{ product.name }}</td>
-          <td>{{ product.price }}</td>
-          <td>
-            <button (click)="productDetail(product.productId)">
-              Ver detalle
-            </button>
-          </td>
-        </tr>
-        }
-      </tbody>
-    </table>
-  </div>
-  <div class="zone">
-    <h3>Detalle</h3>
-    @if (details) {
-    <div>
-      <p>Nombre: {{ details.name }}</p>
-      <p>Precio: {{ details.price }}</p>
-      <p>Descripción: {{ details.description }}</p>
-    </div>
-    }
-  </div>
-</div>
- -->

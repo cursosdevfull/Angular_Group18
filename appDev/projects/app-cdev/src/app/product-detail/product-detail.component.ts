@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'cdev-product-detail',
@@ -8,5 +8,5 @@ import { Component, Input } from '@angular/core';
   styleUrl: './product-detail.component.css',
 })
 export class ProductDetailComponent {
-  @Input('product') details: any;
+  details: any;
 }
