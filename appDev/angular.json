@@ -27,6 +27,7 @@
               }
             ],
             "styles": [
+              "projects/app-cdev/src/custom-theme.scss",
               "projects/app-cdev/src/styles.css"
             ],
             "scripts": []

@@ -4,3 +4,4 @@
 
 export * from './lib/app-cdev-lib.service';
 export * from './lib/app-cdev-lib.component';
+export * from './lib/animation/animation.component';

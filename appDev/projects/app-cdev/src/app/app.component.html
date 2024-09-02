@@ -1,3 +1,16 @@
-<h1>CursosDev - Curso Angular</h1>
-
-<cdev-product></cdev-product>
+<mat-sidenav-container>
+  @if(!hideMainMenu) {
+  <mat-sidenav [opened]="mainMenuOpened()" mode="side"></mat-sidenav>
+  }
+  <mat-sidenav-content>
+    @if(!hideToolbar) {
+    <mat-toolbar>
+      <button mat-flat-button extended (click)="toggleMainMenu()">
+        <mat-icon>more_vert</mat-icon>
+        <span>Menú</span>
+      </button>
+    </mat-toolbar>
+    }
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
