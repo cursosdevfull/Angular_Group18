@@ -6,11 +6,7 @@ mat-sidenav {
 
 mat-sidenav {
   width: 240px;
-  background-color: #ebe6e6;
+  background-color: #848fc7;
   color: white;
-}
-
-mat-toolbar {
-  background-color: #848ec7;
-  color: white;
+  border-radius: 0;
 }

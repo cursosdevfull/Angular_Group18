@@ -1,0 +1,19 @@
+mat-toolbar {
+  background-color: whitesmoke;
+  color: white;
+  border-bottom: 1px solid #848fc7;
+  display: flex;
+  justify-content: space-between;
+}
+
+.info-user___data {
+  display: flex;
+  align-items: center;
+}
+
+.info-user___data img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+}

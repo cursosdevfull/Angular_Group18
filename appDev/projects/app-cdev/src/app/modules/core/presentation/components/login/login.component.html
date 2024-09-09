@@ -1,16 +1,50 @@
 <div class="container">
   <h1 class="container__title">Credenciales</h1>
-  <form class="container__form">
+  <form class="container__form" [formGroup]="fg">
     <mat-form-field appearance="outline">
       <mat-label>Correo</mat-label>
-      <input type="email" matInput />
+      <input type="email" matInput formControlName="email" />
       <mat-icon matSuffix>email</mat-icon>
+      @if(fg.get("email")?.hasError("required")) {
+      <mat-error>Email is required</mat-error>
+      } @if(fg.get("email")?.hasError("email")) {
+      <mat-error>It must be an email</mat-error>
+      } @if(fg.get("email")?.hasError("emailFree")) {
+      <mat-error>Email shouldn't be free</mat-error>
+      } @if(fg.get("email")?.hasError("notEmailCompany")) {
+      <mat-error>Email must have a company domain</mat-error>
+      }
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Contraseña</mat-label>
-      <input type="password" matInput />
+      <input type="password" matInput formControlName="password" />
       <mat-icon matSuffix>lock</mat-icon>
+      @if(fg.get("password")?.hasError("required")) {
+      <mat-error>Password is required</mat-error>
+      } @if(fg.get("password")?.hasError("pattern")) {
+      <mat-error>It must be to comply with a pattern</mat-error>
+      }
     </mat-form-field>
-    <button mat-flat-button type="button">Ingresar</button>
+
+    <!--     <mat-form-field appearance="outline">
+      <mat-label>Confirmar Contraseña</mat-label>
+      <input type="password" matInput formControlName="confirmPassword" />
+      <mat-icon matSuffix>lock</mat-icon>
+      <mat-error>To confirm Password is required</mat-error>
+    </mat-form-field>
+
+    @if(fg.hasError("notMatch") && fg.get("confirmPassword")?.touched &&
+    fg.get("password")?.touched) {
+    <mat-error>Passwords don't match</mat-error>
+    } -->
+
+    <button
+      mat-flat-button
+      type="button"
+      (click)="auth()"
+      [disabled]="fg.invalid"
+    >
+      Ingresar
+    </button>
   </form>
 </div>

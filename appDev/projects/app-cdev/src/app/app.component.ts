@@ -5,7 +5,12 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterOutlet } from '@angular/router';
 
-import { LayoutService, TLayout } from './modules/core/presentation/services/layout.service';
+import { HeaderComponent } from './modules/core/presentation/components/header/header.component';
+import { MenuComponent } from './modules/core/presentation/components/menu/menu.component';
+import {
+  LayoutService,
+  TLayout,
+} from './modules/core/presentation/services/layout.service';
 
 @Component({
   selector: 'cdev-root',
@@ -16,6 +21,8 @@ import { LayoutService, TLayout } from './modules/core/presentation/services/lay
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
+    HeaderComponent,
+    MenuComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
@@ -28,7 +35,7 @@ export class AppComponent {
   layoutService = inject(LayoutService);
   layoutSignal = this.layoutService.layoutSignal;
 
-  constructor(/*layoutService: LayoutService*/) {
+  constructor() {
     effect(() => {
       const data = this.layoutSignal() as TLayout;
       if (data.hideMainMenu !== undefined) {
@@ -39,18 +46,6 @@ export class AppComponent {
         this.hideToolbar = data.hideToolbar;
       }
     });
-
-    /* layoutService.getLayoutObs().subscribe({
-      next: (data: TLayout) => {
-        if (data.hideMainMenu !== undefined) {
-          this.hideMainMenu.set(data.hideMainMenu);
-        }
-
-        if (data.hideToolbar !== undefined) {
-          this.hideToolbar.set(data.hideToolbar);
-        }
-      },
-    }); */
   }
 
   toggleMainMenu() {
