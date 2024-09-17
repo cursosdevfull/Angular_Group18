@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { LayoutService } from '../../../../core/presentation/services/layout.service';
+import { LayoutService } from '../../../../core/presentation/modules/layout/layout.service';
 
 @Component({
   selector: 'cdev-page-dashboard',

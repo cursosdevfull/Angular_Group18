@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, signal, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { Router, RouterModule } from '@angular/router';
 
+import { CapsLockDirective } from '../../../../../../../../app-cdev-lib/src/lib/directives/caps-lock.directive';
 import { ValidatorsEmailService } from '../../../../../../../../app-cdev-lib/src/lib/services/validators-email.service';
 
 @Component({
@@ -23,13 +24,16 @@ import { ValidatorsEmailService } from '../../../../../../../../app-cdev-lib/src
     MatIconModule,
     ReactiveFormsModule,
     RouterModule,
+    CapsLockDirective,
   ],
   providers: [ValidatorsEmailService],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
+  @ViewChild('email') inputEmail!: ElementRef<HTMLInputElement>;
   fg!: FormGroup;
+  stateCapsLock = signal<boolean>(false);
 
   constructor(
     private fb: FormBuilder,
@@ -40,42 +44,10 @@ export class LoginComponent {
   }
 
   createForm() {
-    this.fg = this.fb.group(
-      {
-        email: [
-          null,
-          [
-            Validators.required,
-            Validators.pattern(
-              /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-            ),
-            this.validatorsEmailService.excludeEmailsFree,
-            this.validatorsEmailService.includeOnlyCompanyEmails(
-              'pe.company.com',
-              'company.com',
-              'mx.company.com'
-            ),
-          ],
-        ],
-        password: [
-          null,
-          [
-            Validators.required,
-            Validators.pattern(/^(?=.*[A-Z])(?=.*\d)(?=.*[#?!]).{8,20}$/),
-          ],
-        ],
-        //confirmPassword: [null, Validators.required],
-      }
-      /* {
-        validators: this.validatorsEmailService.checkPasswords(
-          'password',
-          'confirmPassword'
-        ),
-      } */
-    );
-    /*     this.fg = new FormGroup(
-      {
-        email: new FormControl(null, [
+    this.fg = this.fb.group({
+      email: [
+        null,
+        [
           Validators.required,
           Validators.pattern(
             /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
@@ -86,82 +58,30 @@ export class LoginComponent {
             'company.com',
             'mx.company.com'
           ),
-        ]),
-        password: new FormControl(null, [
+        ],
+      ],
+      password: [
+        null,
+        [
           Validators.required,
           Validators.pattern(/^(?=.*[A-Z])(?=.*\d)(?=.*[#?!]).{8,20}$/),
-        ]),
-        confirmPassword: new FormControl(null, Validators.required),
-      },
-      {
-        validators: this.validatorsEmailService.checkPasswords(
-          'password',
-          'confirmPassword'
-        ),
-      }
-    ); */
+        ],
+      ],
+    });
   }
-
-  /*   checkPasswords(controlName1: string, controlName2: string): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      if (!control || !control.get(controlName1) || !control.get(controlName2))
-        return null;
-
-      const valueControl1 = control.get(controlName1)?.value;
-      const valueControl2 = control.get(controlName2)?.value;
-
-      if (valueControl1 !== valueControl2) {
-        return { notMatch: true };
-      }
-      return null;
-    };
-  } */
-
-  /*   checkPasswords(control: AbstractControl): ValidationErrors | null {
-    console.log('checkPasswords', control);
-    if (!control || !control.get('password') || !control.get('confirmPassword'))
-      return null;
-
-    const password = control.get('password')?.value;
-    const confirmPassword = control.get('confirmPassword')?.value;
-
-    if (password !== confirmPassword) {
-      return { notMatch: true };
-    }
-    return null;
-  } */
-
-  /*   includeOnlyCompanyEmails(...companyDomains: string[]): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      if (!control || !control.value) return null;
-
-      const email = control.value as string;
-      const domain = email.split('@')[1].toLowerCase();
-      if (
-        !companyDomains.some((cd) => cd.toLowerCase() === domain.toLowerCase())
-      ) {
-        return { notEmailCompany: true };
-      }
-
-      return null;
-    };
-  }
-
-  excludeEmailsFree(control: AbstractControl): ValidationErrors | null {
-    if (!control || !control.value) return null;
-
-    const email = control.value as string;
-    if (email.match(/@(gmail|outlook|yahoo)\.com$/i)) {
-      return { emailFree: true };
-    }
-
-    return null;
-  } */
 
   auth() {
     this.fg.markAllAsTouched();
-    console.log('auth', this.fg.value);
-    console.log(this.fg);
     this.router.navigate(['dashboard']);
+  }
+
+  capsLock(event: boolean) {
+    this.stateCapsLock.set(event);
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.inputEmail.nativeElement.focus();
+    }, 0);
   }
 }

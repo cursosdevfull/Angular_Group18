@@ -35,3 +35,13 @@
 button {
   width: 100%;
 }
+
+.container__form__caps-lock {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.container__form__caps-lock__text {
+  font-weight: bold;
+}

@@ -1,0 +1,10 @@
+<div class="container">
+  <h1 class="container__title">Pantalla bloqueada</h1>
+  <p class="container__text">Tu sesión ha sido bloqueada por inactividad.</p>
+  <p class="container__text">Por favor, introduce tu contraseña para desbloquearla.</p>
+  <div class="container__form">
+    <mat-form-field class="container__form-field">
+      <input matInput type="password" placeholder="Contraseña" [(ngModel)]="password" (keyup.enter)="unlockSession()">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="unlockSession()">Desbloquear</button>
+</div>

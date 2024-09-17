@@ -1,4 +1,4 @@
-<mat-sidenav-container>
+<mat-sidenav-container (zenMode)="activeZenMode($event)">
   @if(!hideMainMenu) {
   <mat-sidenav [opened]="mainMenuOpened()" mode="side">
     <cdev-menu></cdev-menu>
@@ -11,3 +11,7 @@
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
+
+@if(inactivityDetected()) {
+<cdev-lock-session></cdev-lock-session>
+}

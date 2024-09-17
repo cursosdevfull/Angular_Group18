@@ -4,7 +4,7 @@
   </button>
 
   <div class="info-user">
-    <button mat-button>
+    <button mat-button [matMenuTriggerFor]="menu">
       <div class="info-user___data">
         <img src="/assets/avatars/avatar-user.png" alt="" />
         <span>Joe Sparta</span>
@@ -12,4 +12,25 @@
       </div>
     </button>
   </div>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <div class="menu">
+        <span>Cerrar sesión</span>
+        <mat-icon>lock</mat-icon>
+      </div>
+    </button>
+    <button mat-menu-item>
+      <div class="menu">
+        <span>Bloquear sesión</span>
+        <mat-icon>block</mat-icon>
+      </div>
+    </button>
+    <mat-divider></mat-divider>
+    <button mat-menu-item>
+      <div class="menu">
+        <span>Perfil</span>
+        <mat-icon>person</mat-icon>
+      </div>
+    </button>
+  </mat-menu>
 </mat-toolbar>

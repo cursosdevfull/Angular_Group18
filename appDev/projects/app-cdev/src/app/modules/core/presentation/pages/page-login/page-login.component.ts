@@ -3,7 +3,7 @@ import { LottieComponent } from 'ngx-lottie';
 
 import { AnimationComponent } from '../../../../../../../../app-cdev-lib/src/lib/animation/animation.component';
 import { LoginComponent } from '../../components/login/login.component';
-import { LayoutService } from '../../services/layout.service';
+import { LayoutService } from '../../modules/layout/layout.service';
 
 @Component({
   selector: 'cdev-page-login',
