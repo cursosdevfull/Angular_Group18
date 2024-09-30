@@ -3,7 +3,8 @@ mat-toolbar {
   color: white;
   border-bottom: 1px solid #848fc7;
   display: flex;
-  justify-content: space-between;
+  /*   justify-content: space-between; */
+  justify-content: flex-end;
 }
 
 .info-user___data {
