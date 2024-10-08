@@ -29,7 +29,8 @@ import { LayoutService } from '../../../../core/presentation/modules/layout/layo
   styleUrl: './page-dashboard.component.css',
 })
 export class PageDashboardComponent {
-  title = 'Dashboard';
+  title = 'Tablero';
+  icon = 'dashboard';
 
   metadataList: MetadataList = [
     { field: 'id', title: 'ID' },

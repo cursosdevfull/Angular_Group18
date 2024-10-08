@@ -1,1 +1,23 @@
-<p>page-schedule works!</p>
+<lib-title [title]="title" [icon]="icon">
+  <button mat-flat-button>
+    <mat-icon>add</mat-icon>
+    <span>AGREGAR</span>
+  </button>
+</lib-title>
+<lib-container>
+  <lib-table [dataSource]="dataSource" [metadataList]="metadataList">
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let row">
+        <button mat-icon-button matTooltip="ELIMINAR">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+  </lib-table>
+  <lib-paginator
+    [length]="length"
+    [pageSize]="pageSize"
+    (onChangePage)="loadDataPerPage($event)"
+  ></lib-paginator>
+</lib-container>

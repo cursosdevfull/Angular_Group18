@@ -1,11 +1,24 @@
 .container {
   height: 64px;
   margin-bottom: 20px;
+  border-bottom: 1px solid #dfe6ee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
 }
 
 .container__title {
   line-height: 64px;
-  font-size: 20px;
+  font-size: 30px;
   font-weight: 500;
-  margin: 0 0 0 20px;
+  display: flex;
+  align-items: center;
+}
+
+mat-icon {
+  font-size: 30px;
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
 }

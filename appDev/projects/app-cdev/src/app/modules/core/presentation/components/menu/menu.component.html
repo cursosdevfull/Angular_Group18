@@ -2,15 +2,13 @@
   <img src="/assets/avatars/logo-course.png" alt="" class="logo__avatar" />
 </div>
 
-<div>
-  <mat-nav-list>
-    @for (item of menuItems; track item) {
-    <mat-list-item>
-      <a matListItemTitle routerLink="item.route">{{ "prueba" }}</a>
-      <button mat-icon-button matListItemMeta>
-        <mat-icon>info</mat-icon>
-      </button>
-    </mat-list-item>
-    }
-  </mat-nav-list>
-</div>
+<ul>
+  @for (item of menuItems; track item) {
+  <li>
+    <a [routerLink]="item.route">
+      <mat-icon>{{ item.icon }}</mat-icon>
+      <span class="name_item">{{ item.name }}</span>
+    </a>
+  </li>
+  }
+</ul>

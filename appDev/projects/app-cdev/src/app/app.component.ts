@@ -14,6 +14,7 @@ import {
   LayoutService,
   TLayout,
 } from './modules/core/presentation/modules/layout/layout.service';
+import { IconService } from './modules/core/presentation/services/icon.service';
 
 @Component({
   selector: 'cdev-root',
@@ -42,6 +43,7 @@ export class AppComponent {
   layoutSignal = this.layoutService.layoutSignal;
 
   inactivityDetected = signal<boolean>(false);
+  iconService = inject(IconService);
 
   constructor() {
     effect(() => {

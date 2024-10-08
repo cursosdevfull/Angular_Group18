@@ -1,3 +1,9 @@
 <div class="container">
-  <h1 class="container__title">{{ title() }}</h1>
+  <h1 class="container__title">
+    <mat-icon>{{ icon() }}</mat-icon>
+    <span>{{ title() }}</span>
+  </h1>
+  <div>
+    <ng-content></ng-content>
+  </div>
 </div>
