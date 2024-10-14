@@ -1,0 +1,24 @@
+version: "0.2"
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20
+  pre_build:
+    commands:
+      - echo "Intalling dependencies"
+      - cd appDev
+      - npm ci
+  build:
+    commands:
+      - echo "Starting compilation"
+      - npm run build --project appCDev
+  post_build:
+    commands:
+      - aws s3 rm s3://curso-angular18 --recursive
+      - aws s3 sync dist/app-cdev/browser s3://curso-angular18 --delete
+      - aws cloudfront create-invalidation --distribution-id E1QIZD61JX3EYI --paths "/*"
+artifacts:
+  name: "CursoAngular18"
+  files:
+    - "**/*"
+  base-directory: dist/app-cdev/browser
