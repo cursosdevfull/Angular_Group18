@@ -4,14 +4,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-import { ExportOptionsComponent } from '../../../../../../../../app-cdev-lib/src/lib/components/export-options/export-options.component';
+import {
+  ExportOptionsComponent,
+} from '../../../../../../../../app-cdev-lib/src/lib/components/export-options/export-options.component';
 import { PaginatorComponent } from '../../../../../../../../app-cdev-lib/src/lib/components/paginator/paginator.component';
 import { MetadataList } from '../../../../../../../../app-cdev-lib/src/lib/types/metadata.type';
-import {
-  ContainerComponent,
-  TableComponent,
-  TitleComponent,
-} from '../../../../../../../../app-cdev-lib/src/public-api';
+import { ContainerComponent, TableComponent, TitleComponent } from '../../../../../../../../app-cdev-lib/src/public-api';
 import { LayoutService } from '../../../../core/presentation/modules/layout/layout.service';
 
 @Component({

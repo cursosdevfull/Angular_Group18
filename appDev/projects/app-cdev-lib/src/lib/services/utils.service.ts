@@ -1,19 +1,17 @@
+import { style } from '@angular/animations';
 import { Injectable } from '@angular/core';
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+import { ContextPageSize } from 'pdfmake/interfaces';
 import * as XLSX from 'xlsx';
 
 import { Info } from '../types/info.type';
 import { Metadata, MetadataList } from '../types/metadata.type';
 
-declare var require: any;
-
-const pdfMake = require('pdfmake/build/pdfmake.js');
-const pdfFonts = require('pdfmake/build/vfs_fonts.js');
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Injectable({ providedIn: 'root' })
 export class UtilsService {
-  constructor() {}
-
   private fromDataToExport(data: any[], metadataList: MetadataList) {
     return data.map((item) => {
       const newRow: any = {};
@@ -55,11 +53,29 @@ export class UtilsService {
       pageSize: 'A4',
       pageOrientation: 'portrait',
       pageMargins: [20, 20, 20, 20],
-      content: [this.generateHeader(imageLogo, info.filename)],
+      content: [
+        this.generateHeader(imageLogo, info.filename),
+        this.generateContent(dataToExport),
+      ],
+      footer: this.generateHeaderFooter,
+      styles: this.generateStyles(),
     };
 
     this.generatePDF(infoFormatted, info.filename, subOption);
   }
+
+  private generateHeaderFooter = (
+    currentPage: number,
+    pageCount: number,
+    pageSize: ContextPageSize
+  ) => {
+    return [
+      {
+        text: `Página ${currentPage} de ${pageCount}`,
+        alignment: 'center',
+      },
+    ];
+  };
 
   private generateHeader(imageLogo: string, title: string) {
     return {
@@ -75,9 +91,105 @@ export class UtilsService {
               borderColor: ['#000', '#000', '#000', '#000'],
               borderWidth: 1,
             },
+            {
+              text: [
+                this.generateRow('CursosDev', 'headerLeft'),
+                this.generateRow('Av. Paulista, 1000', 'subHeaderLeft'),
+                this.generateRow('Las Azucenas, Lima Perú', 'subHeaderLeft'),
+                this.generateRow(
+                  'Teléfono: (51-1) 997-456-789',
+                  'subHeaderLeft'
+                ),
+                this.generateRow('info@cursos-dev.com', 'subHeaderLeft'),
+                this.generateRow('www.cursos-dev.com', 'subHeaderLeft'),
+              ],
+              border: [false, false, false, false],
+            },
+            {
+              text: '',
+              border: [false, false, false, false],
+            },
+            {
+              text: 'Reporte: ' + title,
+              border: [false, false, false, false],
+              style: 'titleReport',
+            },
           ],
         ],
       },
+    };
+  }
+
+  private generateStyles() {
+    return {
+      headerLeft: {
+        fontFamily: 'Verdana',
+        fontSize: 13,
+        height: 16,
+        color: '#3c3b40',
+      },
+      subHeaderLeft: {
+        fontFamily: 'Verdana',
+        fontSize: 10,
+        height: 16,
+        color: '#3c3b40',
+      },
+      titleReport: {
+        fontFamily: 'Verdana',
+        fontSize: 15,
+        height: 16,
+        color: '#3c3b40',
+      },
+      header: {
+        fontFamily: 'Verdana',
+        fontSize: 13,
+        height: 14,
+        color: '#3c3b40',
+        bold: true,
+      },
+    };
+  }
+
+  private generateRow(text: string, style: string) {
+    const row: { text: string; style?: string } = { text: `${text}\n` };
+    if (style) row.style = style;
+    return row;
+  }
+
+  private generateContent(data: any[]) {
+    const body = data.map((el) =>
+      Object.keys(el).map((prop) => this.generateRowData(el[prop]))
+    );
+
+    const rowHeaders: any = Object.keys(data[0]).map((prop) => [
+      {
+        border: [false, false, false, false],
+        text: prop,
+        style: 'header',
+      },
+    ]);
+
+    const quantityColumns = rowHeaders.length;
+
+    const widths = Array.from(Array(quantityColumns).keys()).map(
+      () => Math.floor(100 / quantityColumns) + '%'
+    );
+
+    body.unshift(rowHeaders);
+
+    return {
+      margin: [0, 0, 0, 0],
+      table: {
+        widths,
+        body,
+      },
+    };
+  }
+
+  private generateRowData(text: string) {
+    return {
+      text,
+      border: [false, false, false, false],
     };
   }
 
