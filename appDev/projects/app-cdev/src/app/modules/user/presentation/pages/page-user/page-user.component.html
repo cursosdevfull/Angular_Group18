@@ -9,15 +9,23 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let row">
-        <button mat-icon-button matTooltip="ELIMINAR">
+        <button mat-icon-button matTooltip="ELIMINAR" (click)="delete(row)">
           <mat-icon>delete</mat-icon>
         </button>
       </td>
     </ng-container>
   </lib-table>
-  <lib-paginator
-    [length]="length"
-    [pageSize]="pageSize"
-    (onChangePage)="loadDataPerPage($event)"
-  ></lib-paginator>
+  <div class="container_options">
+    <lib-export-options
+      [data]="dataOriginal"
+      [metadataList]="metadataList"
+      filename="usuarios"
+      subject="lista de usuarios"
+    ></lib-export-options>
+    <lib-paginator
+      [length]="length"
+      [pageSize]="pageSize"
+      (onChangePage)="loadDataPerPage($event)"
+    ></lib-paginator>
+  </div>
 </lib-container>

@@ -21,4 +21,4 @@ artifacts:
   name: "CursoAngular18"
   files:
     - "**/*"
-  base-directory: dist/app-cdev/browser
+  base-directory: appDev/dist/app-cdev/browser

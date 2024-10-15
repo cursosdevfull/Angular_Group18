@@ -1,10 +1,12 @@
 import { style } from '@angular/animations';
 import { Injectable } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { ContextPageSize } from 'pdfmake/interfaces';
 import * as XLSX from 'xlsx';
 
+import { ConfirmComponent } from '../components/confirm/confirm.component';
 import { Info } from '../types/info.type';
 import { Metadata, MetadataList } from '../types/metadata.type';
 
@@ -12,6 +14,22 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Injectable({ providedIn: 'root' })
 export class UtilsService {
+  constructor(private readonly dialog: MatDialog) {}
+
+  showConfirm(message?: string) {
+    const reference = this.dialog.open(ConfirmComponent, {
+      panelClass: 'modal-confirm',
+      data: null,
+      disableClose: true,
+    });
+
+    if (message) {
+      reference.componentInstance.message = message;
+    }
+
+    return reference.afterClosed();
+  }
+
   private fromDataToExport(data: any[], metadataList: MetadataList) {
     return data.map((item) => {
       const newRow: any = {};

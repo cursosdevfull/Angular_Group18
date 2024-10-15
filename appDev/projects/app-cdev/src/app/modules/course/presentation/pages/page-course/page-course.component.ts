@@ -4,13 +4,18 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-import {
-  ExportOptionsComponent,
-} from '../../../../../../../../app-cdev-lib/src/lib/components/export-options/export-options.component';
+import { ExportOptionsComponent } from '../../../../../../../../app-cdev-lib/src/lib/components/export-options/export-options.component';
 import { PaginatorComponent } from '../../../../../../../../app-cdev-lib/src/lib/components/paginator/paginator.component';
+import { UtilsService } from '../../../../../../../../app-cdev-lib/src/lib/services/utils.service';
 import { MetadataList } from '../../../../../../../../app-cdev-lib/src/lib/types/metadata.type';
-import { ContainerComponent, TableComponent, TitleComponent } from '../../../../../../../../app-cdev-lib/src/public-api';
+import {
+  ContainerComponent,
+  TableComponent,
+  TitleComponent,
+} from '../../../../../../../../app-cdev-lib/src/public-api';
 import { LayoutService } from '../../../../core/presentation/modules/layout/layout.service';
+import { CourseApplication } from '../../../application/course.application';
+import { Course } from '../../../domain/course';
 
 @Component({
   selector: 'cdev-page-course',
@@ -35,352 +40,13 @@ export class PageCourseComponent {
   icon = 'school';
 
   metadataList: MetadataList = [
-    { field: 'id', title: 'ID' },
-    { field: 'name', title: 'Nombre' },
-    { field: 'email', title: 'Correo' },
-    { field: 'phone', title: 'Teléfono' },
-    { field: 'company', title: 'Compañía' },
+    { field: 'courseId', title: 'ID' },
+    { field: 'title', title: 'Título' },
+    { field: 'slug', title: 'Slug' },
+    { field: 'status', title: 'Estado' },
   ];
 
-  dataOriginal = [
-    {
-      id: 1,
-      name: 'John Doe',
-      email: 'john.doe@email.com',
-      phone: '123-456-7890',
-      company: 'Company A',
-    },
-    {
-      id: 2,
-      name: 'Jane Doe',
-      email: 'jane.doe@email.com',
-      phone: '123-456-7890',
-      company: 'Company B',
-    },
-    {
-      id: 3,
-      name: 'John Smith',
-      email: 'john.smith@email.com',
-      phone: '123-456-7890',
-      company: 'Company C',
-    },
-    {
-      id: 4,
-      name: 'Jane Smith',
-      email: 'jane.smith@email.com',
-      phone: '123-456-7890',
-      company: 'Company D',
-    },
-    {
-      id: 1,
-      name: 'John Doe',
-      email: 'john.doe@email.com',
-      phone: '123-456-7890',
-      company: 'Company A',
-    },
-    {
-      id: 2,
-      name: 'Jane Doe',
-      email: 'jane.doe@email.com',
-      phone: '123-456-7890',
-      company: 'Company B',
-    },
-    {
-      id: 3,
-      name: 'John Smith',
-      email: 'john.smith@email.com',
-      phone: '123-456-7890',
-      company: 'Company C',
-    },
-    {
-      id: 4,
-      name: 'Jane Smith',
-      email: 'jane.smith@email.com',
-      phone: '123-456-7890',
-      company: 'Company D',
-    },
-    {
-      id: 1,
-      name: 'John Doe',
-      email: 'john.doe@email.com',
-      phone: '123-456-7890',
-      company: 'Company A',
-    },
-    {
-      id: 2,
-      name: 'Jane Doe',
-      email: 'jane.doe@email.com',
-      phone: '123-456-7890',
-      company: 'Company B',
-    },
-    {
-      id: 3,
-      name: 'John Smith',
-      email: 'john.smith@email.com',
-      phone: '123-456-7890',
-      company: 'Company C',
-    },
-    {
-      id: 4,
-      name: 'Jane Smith',
-      email: 'jane.smith@email.com',
-      phone: '123-456-7890',
-      company: 'Company D',
-    },
-    {
-      id: 1,
-      name: 'John Doe',
-      email: 'john.doe@email.com',
-      phone: '123-456-7890',
-      company: 'Company A',
-    },
-    {
-      id: 2,
-      name: 'Jane Doe',
-      email: 'jane.doe@email.com',
-      phone: '123-456-7890',
-      company: 'Company B',
-    },
-    {
-      id: 3,
-      name: 'John Smith',
-      email: 'john.smith@email.com',
-      phone: '123-456-7890',
-      company: 'Company C',
-    },
-    {
-      id: 4,
-      name: 'Jane Smith',
-      email: 'jane.smith@email.com',
-      phone: '123-456-7890',
-      company: 'Company D',
-    },
-    {
-      id: 1,
-      name: 'John Doe',
-      email: 'john.doe@email.com',
-      phone: '123-456-7890',
-      company: 'Company A',
-    },
-    {
-      id: 2,
-      name: 'Jane Doe',
-      email: 'jane.doe@email.com',
-      phone: '123-456-7890',
-      company: 'Company B',
-    },
-    {
-      id: 3,
-      name: 'John Smith',
-      email: 'john.smith@email.com',
-      phone: '123-456-7890',
-      company: 'Company C',
-    },
-    {
-      id: 4,
-      name: 'Jane Smith',
-      email: 'jane.smith@email.com',
-      phone: '123-456-7890',
-      company: 'Company D',
-    },
-    {
-      id: 1,
-      name: 'John Doe',
-      email: 'john.doe@email.com',
-      phone: '123-456-7890',
-      company: 'Company A',
-    },
-    {
-      id: 2,
-      name: 'Jane Doe',
-      email: 'jane.doe@email.com',
-      phone: '123-456-7890',
-      company: 'Company B',
-    },
-    {
-      id: 3,
-      name: 'John Smith',
-      email: 'john.smith@email.com',
-      phone: '123-456-7890',
-      company: 'Company C',
-    },
-    {
-      id: 4,
-      name: 'Jane Smith',
-      email: 'jane.smith@email.com',
-      phone: '123-456-7890',
-      company: 'Company D',
-    },
-    {
-      id: 1,
-      name: 'John Doe',
-      email: 'john.doe@email.com',
-      phone: '123-456-7890',
-      company: 'Company A',
-    },
-    {
-      id: 2,
-      name: 'Jane Doe',
-      email: 'jane.doe@email.com',
-      phone: '123-456-7890',
-      company: 'Company B',
-    },
-    {
-      id: 3,
-      name: 'John Smith',
-      email: 'john.smith@email.com',
-      phone: '123-456-7890',
-      company: 'Company C',
-    },
-    {
-      id: 4,
-      name: 'Jane Smith',
-      email: 'jane.smith@email.com',
-      phone: '123-456-7890',
-      company: 'Company D',
-    },
-    {
-      id: 1,
-      name: 'John Doe',
-      email: 'john.doe@email.com',
-      phone: '123-456-7890',
-      company: 'Company A',
-    },
-    {
-      id: 2,
-      name: 'Jane Doe',
-      email: 'jane.doe@email.com',
-      phone: '123-456-7890',
-      company: 'Company B',
-    },
-    {
-      id: 3,
-      name: 'John Smith',
-      email: 'john.smith@email.com',
-      phone: '123-456-7890',
-      company: 'Company C',
-    },
-    {
-      id: 4,
-      name: 'Jane Smith',
-      email: 'jane.smith@email.com',
-      phone: '123-456-7890',
-      company: 'Company D',
-    },
-    {
-      id: 1,
-      name: 'John Doe',
-      email: 'john.doe@email.com',
-      phone: '123-456-7890',
-      company: 'Company A',
-    },
-    {
-      id: 2,
-      name: 'Jane Doe',
-      email: 'jane.doe@email.com',
-      phone: '123-456-7890',
-      company: 'Company B',
-    },
-    {
-      id: 3,
-      name: 'John Smith',
-      email: 'john.smith@email.com',
-      phone: '123-456-7890',
-      company: 'Company C',
-    },
-    {
-      id: 4,
-      name: 'Jane Smith',
-      email: 'jane.smith@email.com',
-      phone: '123-456-7890',
-      company: 'Company D',
-    },
-    {
-      id: 1,
-      name: 'John Doe',
-      email: 'john.doe@email.com',
-      phone: '123-456-7890',
-      company: 'Company A',
-    },
-    {
-      id: 2,
-      name: 'Jane Doe',
-      email: 'jane.doe@email.com',
-      phone: '123-456-7890',
-      company: 'Company B',
-    },
-    {
-      id: 3,
-      name: 'John Smith',
-      email: 'john.smith@email.com',
-      phone: '123-456-7890',
-      company: 'Company C',
-    },
-    {
-      id: 4,
-      name: 'Jane Smith',
-      email: 'jane.smith@email.com',
-      phone: '123-456-7890',
-      company: 'Company D',
-    },
-    {
-      id: 1,
-      name: 'John Doe',
-      email: 'john.doe@email.com',
-      phone: '123-456-7890',
-      company: 'Company A',
-    },
-    {
-      id: 2,
-      name: 'Jane Doe',
-      email: 'jane.doe@email.com',
-      phone: '123-456-7890',
-      company: 'Company B',
-    },
-    {
-      id: 3,
-      name: 'John Smith',
-      email: 'john.smith@email.com',
-      phone: '123-456-7890',
-      company: 'Company C',
-    },
-    {
-      id: 4,
-      name: 'Jane Smith',
-      email: 'jane.smith@email.com',
-      phone: '123-456-7890',
-      company: 'Company D',
-    },
-    {
-      id: 1,
-      name: 'John Doe',
-      email: 'john.doe@email.com',
-      phone: '123-456-7890',
-      company: 'Company A',
-    },
-    {
-      id: 2,
-      name: 'Jane Doe',
-      email: 'jane.doe@email.com',
-      phone: '123-456-7890',
-      company: 'Company B',
-    },
-    {
-      id: 3,
-      name: 'John Smith',
-      email: 'john.smith@email.com',
-      phone: '123-456-7890',
-      company: 'Company C',
-    },
-    {
-      id: 4,
-      name: 'Jane Smith',
-      email: 'jane.smith@email.com',
-      phone: '123-456-7890',
-      company: 'Company D',
-    },
-  ];
-
+  dataOriginal: any[] = [];
   dataSource: any[] = [];
 
   length = 0;
@@ -388,11 +54,17 @@ export class PageCourseComponent {
 
   currentPage = 0;
 
-  constructor(layoutService: LayoutService) {
+  constructor(
+    layoutService: LayoutService,
+    private readonly utils: UtilsService,
+    private readonly application: CourseApplication
+  ) {
     layoutService.setLayoutObs({ hideMainMenu: false, hideToolbar: false });
-    this.length = this.dataOriginal.length;
-    console.log('DashboardComponent created');
-    this.loadDataPerPage(0);
+    application.getAllCourses().then((data: Course[]) => {
+      this.dataOriginal = data.map((item: Course) => item.properties);
+      this.length = this.dataOriginal.length;
+      this.loadDataPerPage(0);
+    });
   }
 
   loadDataPerPage(currentPage: number) {
@@ -401,5 +73,17 @@ export class PageCourseComponent {
       this.currentPage * this.pageSize,
       (this.currentPage + 1) * this.pageSize
     );
+  }
+
+  delete(row: any) {
+    this.utils.showConfirm('¿Está seguro?').subscribe((result) => {
+      if (result) {
+        this.dataOriginal = this.dataOriginal.filter(
+          (item) => item.id !== row.id
+        );
+        this.length = this.dataOriginal.length;
+        this.loadDataPerPage(this.currentPage);
+      }
+    });
   }
 }

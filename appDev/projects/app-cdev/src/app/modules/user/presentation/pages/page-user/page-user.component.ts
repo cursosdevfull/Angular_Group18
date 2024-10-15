@@ -6,8 +6,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { ContainerComponent } from '../../../../../../../../app-cdev-lib/src/lib/components/container/container.component';
 import { PaginatorComponent } from '../../../../../../../../app-cdev-lib/src/lib/components/paginator/paginator.component';
+import { UtilsService } from '../../../../../../../../app-cdev-lib/src/lib/services/utils.service';
 import { MetadataList } from '../../../../../../../../app-cdev-lib/src/lib/types/metadata.type';
 import {
+  ExportOptionsComponent,
   TableComponent,
   TitleComponent,
 } from '../../../../../../../../app-cdev-lib/src/public-api';
@@ -26,6 +28,7 @@ import { LayoutService } from '../../../../core/presentation/modules/layout/layo
     MatButtonModule,
     MatTooltipModule,
     PaginatorComponent,
+    ExportOptionsComponent,
   ],
   templateUrl: './page-user.component.html',
   styleUrl: './page-user.component.css',
@@ -72,308 +75,308 @@ export class PageUserComponent {
       company: 'Company D',
     },
     {
-      id: 1,
+      id: 5,
       name: 'John Doe',
       email: 'john.doe@email.com',
       phone: '123-456-7890',
       company: 'Company A',
     },
     {
-      id: 2,
+      id: 6,
       name: 'Jane Doe',
       email: 'jane.doe@email.com',
       phone: '123-456-7890',
       company: 'Company B',
     },
     {
-      id: 3,
+      id: 7,
       name: 'John Smith',
       email: 'john.smith@email.com',
       phone: '123-456-7890',
       company: 'Company C',
     },
     {
-      id: 4,
+      id: 8,
       name: 'Jane Smith',
       email: 'jane.smith@email.com',
       phone: '123-456-7890',
       company: 'Company D',
     },
     {
-      id: 1,
+      id: 9,
       name: 'John Doe',
       email: 'john.doe@email.com',
       phone: '123-456-7890',
       company: 'Company A',
     },
     {
-      id: 2,
+      id: 10,
       name: 'Jane Doe',
       email: 'jane.doe@email.com',
       phone: '123-456-7890',
       company: 'Company B',
     },
     {
-      id: 3,
+      id: 11,
       name: 'John Smith',
       email: 'john.smith@email.com',
       phone: '123-456-7890',
       company: 'Company C',
     },
     {
-      id: 4,
+      id: 12,
       name: 'Jane Smith',
       email: 'jane.smith@email.com',
       phone: '123-456-7890',
       company: 'Company D',
     },
     {
-      id: 1,
+      id: 13,
       name: 'John Doe',
       email: 'john.doe@email.com',
       phone: '123-456-7890',
       company: 'Company A',
     },
     {
-      id: 2,
+      id: 14,
       name: 'Jane Doe',
       email: 'jane.doe@email.com',
       phone: '123-456-7890',
       company: 'Company B',
     },
     {
-      id: 3,
+      id: 15,
       name: 'John Smith',
       email: 'john.smith@email.com',
       phone: '123-456-7890',
       company: 'Company C',
     },
     {
-      id: 4,
+      id: 16,
       name: 'Jane Smith',
       email: 'jane.smith@email.com',
       phone: '123-456-7890',
       company: 'Company D',
     },
     {
-      id: 1,
+      id: 17,
       name: 'John Doe',
       email: 'john.doe@email.com',
       phone: '123-456-7890',
       company: 'Company A',
     },
     {
-      id: 2,
+      id: 18,
       name: 'Jane Doe',
       email: 'jane.doe@email.com',
       phone: '123-456-7890',
       company: 'Company B',
     },
     {
-      id: 3,
+      id: 19,
       name: 'John Smith',
       email: 'john.smith@email.com',
       phone: '123-456-7890',
       company: 'Company C',
     },
     {
-      id: 4,
+      id: 20,
       name: 'Jane Smith',
       email: 'jane.smith@email.com',
       phone: '123-456-7890',
       company: 'Company D',
     },
     {
-      id: 1,
+      id: 21,
       name: 'John Doe',
       email: 'john.doe@email.com',
       phone: '123-456-7890',
       company: 'Company A',
     },
     {
-      id: 2,
+      id: 22,
       name: 'Jane Doe',
       email: 'jane.doe@email.com',
       phone: '123-456-7890',
       company: 'Company B',
     },
     {
-      id: 3,
+      id: 23,
       name: 'John Smith',
       email: 'john.smith@email.com',
       phone: '123-456-7890',
       company: 'Company C',
     },
     {
-      id: 4,
+      id: 24,
       name: 'Jane Smith',
       email: 'jane.smith@email.com',
       phone: '123-456-7890',
       company: 'Company D',
     },
     {
-      id: 1,
+      id: 25,
       name: 'John Doe',
       email: 'john.doe@email.com',
       phone: '123-456-7890',
       company: 'Company A',
     },
     {
-      id: 2,
+      id: 26,
       name: 'Jane Doe',
       email: 'jane.doe@email.com',
       phone: '123-456-7890',
       company: 'Company B',
     },
     {
-      id: 3,
+      id: 27,
       name: 'John Smith',
       email: 'john.smith@email.com',
       phone: '123-456-7890',
       company: 'Company C',
     },
     {
-      id: 4,
+      id: 28,
       name: 'Jane Smith',
       email: 'jane.smith@email.com',
       phone: '123-456-7890',
       company: 'Company D',
     },
     {
-      id: 1,
+      id: 29,
       name: 'John Doe',
       email: 'john.doe@email.com',
       phone: '123-456-7890',
       company: 'Company A',
     },
     {
-      id: 2,
+      id: 30,
       name: 'Jane Doe',
       email: 'jane.doe@email.com',
       phone: '123-456-7890',
       company: 'Company B',
     },
     {
-      id: 3,
+      id: 31,
       name: 'John Smith',
       email: 'john.smith@email.com',
       phone: '123-456-7890',
       company: 'Company C',
     },
     {
-      id: 4,
+      id: 32,
       name: 'Jane Smith',
       email: 'jane.smith@email.com',
       phone: '123-456-7890',
       company: 'Company D',
     },
     {
-      id: 1,
+      id: 33,
       name: 'John Doe',
       email: 'john.doe@email.com',
       phone: '123-456-7890',
       company: 'Company A',
     },
     {
-      id: 2,
+      id: 34,
       name: 'Jane Doe',
       email: 'jane.doe@email.com',
       phone: '123-456-7890',
       company: 'Company B',
     },
     {
-      id: 3,
+      id: 35,
       name: 'John Smith',
       email: 'john.smith@email.com',
       phone: '123-456-7890',
       company: 'Company C',
     },
     {
-      id: 4,
+      id: 36,
       name: 'Jane Smith',
       email: 'jane.smith@email.com',
       phone: '123-456-7890',
       company: 'Company D',
     },
     {
-      id: 1,
+      id: 37,
       name: 'John Doe',
       email: 'john.doe@email.com',
       phone: '123-456-7890',
       company: 'Company A',
     },
     {
-      id: 2,
+      id: 38,
       name: 'Jane Doe',
       email: 'jane.doe@email.com',
       phone: '123-456-7890',
       company: 'Company B',
     },
     {
-      id: 3,
+      id: 39,
       name: 'John Smith',
       email: 'john.smith@email.com',
       phone: '123-456-7890',
       company: 'Company C',
     },
     {
-      id: 4,
+      id: 40,
       name: 'Jane Smith',
       email: 'jane.smith@email.com',
       phone: '123-456-7890',
       company: 'Company D',
     },
     {
-      id: 1,
+      id: 41,
       name: 'John Doe',
       email: 'john.doe@email.com',
       phone: '123-456-7890',
       company: 'Company A',
     },
     {
-      id: 2,
+      id: 42,
       name: 'Jane Doe',
       email: 'jane.doe@email.com',
       phone: '123-456-7890',
       company: 'Company B',
     },
     {
-      id: 3,
+      id: 43,
       name: 'John Smith',
       email: 'john.smith@email.com',
       phone: '123-456-7890',
       company: 'Company C',
     },
     {
-      id: 4,
+      id: 44,
       name: 'Jane Smith',
       email: 'jane.smith@email.com',
       phone: '123-456-7890',
       company: 'Company D',
     },
     {
-      id: 1,
+      id: 45,
       name: 'John Doe',
       email: 'john.doe@email.com',
       phone: '123-456-7890',
       company: 'Company A',
     },
     {
-      id: 2,
+      id: 46,
       name: 'Jane Doe',
       email: 'jane.doe@email.com',
       phone: '123-456-7890',
       company: 'Company B',
     },
     {
-      id: 3,
+      id: 47,
       name: 'John Smith',
       email: 'john.smith@email.com',
       phone: '123-456-7890',
       company: 'Company C',
     },
     {
-      id: 4,
+      id: 48,
       name: 'Jane Smith',
       email: 'jane.smith@email.com',
       phone: '123-456-7890',
@@ -388,7 +391,10 @@ export class PageUserComponent {
 
   currentPage = 0;
 
-  constructor(layoutService: LayoutService) {
+  constructor(
+    layoutService: LayoutService,
+    private readonly utils: UtilsService
+  ) {
     layoutService.setLayoutObs({ hideMainMenu: false, hideToolbar: false });
     this.length = this.dataOriginal.length;
     console.log('DashboardComponent created');
@@ -401,5 +407,17 @@ export class PageUserComponent {
       this.currentPage * this.pageSize,
       (this.currentPage + 1) * this.pageSize
     );
+  }
+
+  delete(row: any) {
+    this.utils.showConfirm('¿Está seguro?').subscribe((result) => {
+      if (result) {
+        this.dataOriginal = this.dataOriginal.filter(
+          (item) => item.id !== row.id
+        );
+        this.length = this.dataOriginal.length;
+        this.loadDataPerPage(this.currentPage);
+      }
+    });
   }
 }
