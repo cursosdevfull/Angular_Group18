@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import { LottieComponent } from 'ngx-lottie';
 
 import { AnimationComponent } from '../../../../../../../../app-cdev-lib/src/lib/animation/animation.component';
@@ -8,7 +9,7 @@ import { LayoutService } from '../../modules/layout/layout.service';
 @Component({
   selector: 'cdev-page-login',
   standalone: true,
-  imports: [LottieComponent, LoginComponent, AnimationComponent],
+  imports: [LottieComponent, LoginComponent, AnimationComponent, RouterOutlet],
   templateUrl: './page-login.component.html',
   styleUrl: './page-login.component.css',
   providers: [],

@@ -1,0 +1,22 @@
+<div class="container">
+  <h1 class="container__title">Escaner QR</h1>
+  <img [src]="qr" alt="QR" />
+  <form class="container__form" [formGroup]="fg">
+    <mat-form-field appearance="outline">
+      <mat-label>Token</mat-label>
+      <input type="text" matInput formControlName="token" #token />
+      @if(fg.get("token")?.hasError("required")) {
+      <mat-error>Token is required</mat-error>
+      }
+    </mat-form-field>
+
+    <button
+      mat-flat-button
+      type="button"
+      (click)="active2FA()"
+      [disabled]="fg.invalid"
+    >
+      Activar 2FA
+    </button>
+  </form>
+</div>

@@ -1,6 +1,21 @@
 <div class="container">
-  <h1 class="container__title">Credenciales</h1>
+  <h1 class="container__title">Registro nuevo usuario</h1>
   <form class="container__form" [formGroup]="fg">
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input type="text" matInput formControlName="name" #name />
+      @if(fg.get("name")?.hasError("required")) {
+      <mat-error>Name is required</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Apellido</mat-label>
+      <input type="text" matInput formControlName="lastname" />
+      @if(fg.get("lastname")?.hasError("required")) {
+      <mat-error>Lastname is required</mat-error>
+      }
+    </mat-form-field>
+
     <mat-form-field appearance="outline">
       <mat-label>Correo</mat-label>
       <input type="email" matInput formControlName="email" #email />
@@ -17,12 +32,7 @@
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Contraseña</mat-label>
-      <input
-        type="password"
-        matInput
-        formControlName="password"
-        (onCapsLock)="capsLock($event)"
-      />
+      <input type="password" matInput formControlName="password" />
       <mat-icon matSuffix>lock</mat-icon>
       @if(fg.get("password")?.hasError("required")) {
       <mat-error>Password is required</mat-error>
@@ -30,28 +40,14 @@
       <mat-error>It must be to comply with a pattern</mat-error>
       }
     </mat-form-field>
-    <div class="container__form__caps-lock">
-      @if(stateCapsLock()) {
-      <mat-icon color="warn">keyboard_capslock</mat-icon>
-      <span class="container__form__caps-lock__text">Mayúsculas activas</span>
-      }
-    </div>
 
     <button
       mat-flat-button
       type="button"
-      (click)="auth()"
+      (click)="register()"
       [disabled]="fg.invalid"
     >
-      Ingresar
+      Registrar
     </button>
-
-    <div class="container__form__recaptcha">
-      <re-captcha formControlName="recaptchaCode"></re-captcha>
-    </div>
   </form>
-  <p class="container__form__register">
-    ¿No tienes una cuenta?
-    <a routerLink="/auth/register">Regístrate</a>
-  </p>
 </div>

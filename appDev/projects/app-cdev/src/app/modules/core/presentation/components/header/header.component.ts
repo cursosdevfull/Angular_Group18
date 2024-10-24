@@ -4,13 +4,16 @@ import {
   Injector,
   model,
   runInInjectionContext,
+  signal,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import * as jwt from 'jwt-decode';
 
+import { AuthService } from '../../../../auth/infrastructure/services/auth.service';
 import { InactivityService } from '../../modules/inactivity/inactivity.service';
 
 @Component({
@@ -29,10 +32,14 @@ import { InactivityService } from '../../modules/inactivity/inactivity.service';
 export class HeaderComponent {
   mainHeaderMenuOpened = model.required<boolean>();
   inactivityService!: InactivityService;
+  auth = inject(AuthService);
+  username = signal<string>('');
   //private readonly inactivityService = inject(InactivityService);
 
   //constructor(private readonly inactivityService: InactivityService) {}
-  constructor(private injector: Injector) {}
+  constructor(private injector: Injector) {
+    this.getInfoUser();
+  }
 
   ngOnInit() {
     runInInjectionContext(this.injector, () => {
@@ -46,5 +53,21 @@ export class HeaderComponent {
 
   blockSession() {
     this.inactivityService.lockScreen();
+  }
+
+  logout() {
+    this.auth.logout();
+  }
+
+  getInfoUser() {
+    const accessToken = sessionStorage.getItem('accessToken');
+    if (accessToken) {
+      const { name, lastname, roles } = jwt.jwtDecode(accessToken) as {
+        name: string;
+        lastname: string;
+        roles: object;
+      };
+      this.username.set(`${name} ${lastname}`);
+    }
   }
 }

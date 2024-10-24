@@ -1,0 +1,17 @@
+<div class="container">
+  <h1 class="container__title">Token (OTP)</h1>
+  <form class="container__form" [formGroup]="fg">
+    <mat-form-field appearance="outline">
+      <mat-label>Token</mat-label>
+      <input type="text" matInput formControlName="token" #token />
+      <mat-icon matSuffix>email</mat-icon>
+      @if(fg.get("token")?.hasError("required")) {
+      <mat-error>Email is required</mat-error>
+      }
+    </mat-form-field>
+
+    <button mat-flat-button type="button" [disabled]="fg.invalid" (click)="verify2FA()">
+      Ingresar token
+    </button>
+  </form>
+</div>
