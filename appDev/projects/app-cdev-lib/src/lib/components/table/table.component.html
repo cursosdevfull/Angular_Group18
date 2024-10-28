@@ -1,11 +1,13 @@
 <ng-content></ng-content>
 
 <perfect-scrollbar style="height: 100%">
-  <table mat-table [dataSource]="dataSource">
-    @for (column of metadataList; track $index) {
+  <table mat-table [dataSource]="dataSource()">
+    @for (column of metadataList(); track $index) {
     <ng-container [matColumnDef]="column.field">
       <th mat-header-cell *matHeaderCellDef>{{ column.title }}</th>
-      <td mat-cell *matCellDef="let row">{{ row[column.field] }}</td>
+      <td mat-cell *matCellDef="let row" (click)="edit(row)">
+        {{ row[column.field] }}
+      </td>
     </ng-container>
     }
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

@@ -1,0 +1,19 @@
+.modal-form-course {
+  width: 800px;
+}
+
+.modal-form-course mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-form-course form mat-form-field {
+  width: 100% !important;
+}
+
+.modal-form-course form .form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+}

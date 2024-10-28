@@ -25,7 +25,6 @@ import { LayoutService } from '../../../../core/presentation/modules/layout/layo
     MatTableModule,
     MatButtonModule,
     MatIconModule,
-    MatButtonModule,
     MatTooltipModule,
     PaginatorComponent,
     ExportOptionsComponent,

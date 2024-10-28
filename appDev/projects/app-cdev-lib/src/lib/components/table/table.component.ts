@@ -1,10 +1,10 @@
 import {
   Component,
-  ContentChildren,
-  Input,
-  QueryList,
-  SimpleChanges,
-  ViewChild,
+  contentChildren,
+  effect,
+  input,
+  output,
+  viewChild,
 } from '@angular/core';
 import {
   MatColumnDef,
@@ -37,45 +37,41 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   ],
 })
 export class TableComponent {
-  @ContentChildren(MatColumnDef) columnDefs!: QueryList<MatColumnDef>;
-  @ViewChild(MatTable, { static: false }) table!: MatTable<any>;
+  columnDefs = contentChildren<MatColumnDef>(MatColumnDef);
+  table = viewChild.required<MatTable<any>>(MatTable);
+  /*   @ContentChildren(MatColumnDef) columnDefs!: QueryList<MatColumnDef>;
+  @ViewChild(MatTable, { static: false }) table!: MatTable<any>; */
+  onEdit = output();
 
-  @Input() metadataList: MetadataList = [];
-  @Input() dataSource: any[] = [];
+  metadataList = input.required<MetadataList>();
+  dataSource = input.required<any[]>();
+  /*   @Input() metadataList: MetadataList = [];
+  @Input() dataSource: any[] = []; */
   displayedColumns: string[] = [];
 
   constructor() {
     console.log('TableComponent created');
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    const { metadataList, dataSource } = changes;
-    if (metadataList) {
-      //this.metadataList = metadataList.currentValue;
-      this.displayedColumns = this.metadataList.map(
-        (metadata) => metadata.field
-      );
-      console.log('Metadata list', this.metadataList);
-    }
-
-    if (dataSource) {
-      this.dataSource = dataSource.currentValue;
-    }
-  }
-
-  ngAfterViewInit() {
-    if (!this.columnDefs || this.dataSource.length === 0) return;
-    console.log('Column defs', this.columnDefs);
-    this.columnDefs.forEach((columnDef, index) => {
-      if (!this.displayedColumns.includes(columnDef.name)) {
-        this.table.addColumnDef(columnDef);
-        this.displayedColumns.push(columnDef.name);
-        console.log('Table Definition', this.table);
+    effect(() => {
+      const metadataList = this.metadataList();
+      if (metadataList) {
+        this.displayedColumns = metadataList.map((md) => md.field);
       }
     });
 
-    console.log('Displayed columns', this.displayedColumns);
+    effect(() => {
+      const columnDefs = this.columnDefs();
+      if (columnDefs) {
+        columnDefs.forEach((column) => {
+          if (!this.displayedColumns.includes(column.name)) {
+            this.table().addColumnDef(column);
+            this.displayedColumns.push(column.name);
+          }
+        });
+      }
+    });
+  }
 
-    console.log('TableComponent view initialized');
+  edit(row: any) {
+    this.onEdit.emit(row);
   }
 }

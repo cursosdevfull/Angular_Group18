@@ -1,0 +1,39 @@
+<mat-toolbar>
+  <h3>{{ title() }}</h3>
+  <button mat-icon-button mat-dialog-close>
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-toolbar>
+<form mat-dialog-content [formGroup]="fg">
+  <mat-form-field appearance="outline">
+    <mat-label>Título</mat-label>
+    <input type="text" matInput formControlName="title" required />
+    <mat-error>Título es requerido</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Curso</mat-label>
+    <mat-select formControlName="courseId">
+      @for (course of courses; track course.courseId) {
+      <mat-option [value]="course.courseId">{{ course.title }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Status</mat-label>
+    <mat-select formControlName="status">
+      <mat-option value="draft">Draft</mat-option>
+      <mat-option value="published">Published</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div class="form-buttons">
+    <button
+      mat-raised-button
+      type="button"
+      [disabled]="fg.invalid"
+      (click)="save()"
+    >
+      Guardar
+    </button>
+    <button mat-button mat-dialog-close type="button">Cerrar</button>
+  </div>
+</form>

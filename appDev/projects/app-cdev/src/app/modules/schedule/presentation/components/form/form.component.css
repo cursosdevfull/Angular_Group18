@@ -1,0 +1,19 @@
+.modal-form-schedule {
+  width: 800px;
+}
+
+.modal-form-schedule mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-form-schedule form mat-form-field {
+  width: 100% !important;
+}
+
+.modal-form-schedule form .form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+}

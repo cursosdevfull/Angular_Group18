@@ -3,6 +3,8 @@ import { inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import * as jwt from 'jwt-decode';
 
+import { ParametersService } from '../../../core/presentation/services/parameters.service';
+import { SocketService } from '../../../core/presentation/services/socket.service';
 import { Auth } from '../../domain/auth';
 import { AuthRegister } from '../../domain/auth-register';
 import {
@@ -21,11 +23,13 @@ export class AuthService {
   loginVerify2FA = signal<Tokens | undefined>(undefined);
   registerResult = signal<ResultRegisterDataResponse | undefined>(undefined);
   activateResult = signal<boolean | undefined>(undefined);
+  parameters = inject(ParametersService);
+  socket = inject(SocketService);
 
   login(auth: Auth) {
     this.http
       .post<AuthLoginResponse>(
-        'https://backend-cursos-dev.h7dtvegsb89r2.us-east-1.cs.amazonlightsail.com/v1/auth/login',
+        `${this.parameters.apiUrl}/v1/auth/login`,
         auth.properties
       )
       .subscribe((response) => {
@@ -34,21 +38,20 @@ export class AuthService {
   }
 
   verifyToken(token: string) {
-    const accessToken = sessionStorage.getItem('accessToken');
     this.http
-      .post<AuthLoginResponse>(
-        'https://backend-cursos-dev.h7dtvegsb89r2.us-east-1.cs.amazonlightsail.com/v1/auth/verify-2fa',
-        { token }
-      )
+      .post<AuthLoginResponse>(`${this.parameters.apiUrl}/v1/auth/verify-2fa`, {
+        token,
+      })
       .subscribe((response) => {
         this.loginVerify2FA.update(() => AuthDto.fromDataToTokens(response));
+        this.socket.connect();
       });
   }
 
   register(auth: AuthRegister) {
     this.http
       .post<AuthRegisterResponse>(
-        'https://backend-cursos-dev.h7dtvegsb89r2.us-east-1.cs.amazonlightsail.com/v1/auth/register',
+        `${this.parameters.apiUrl}/v1/auth/register`,
         { ...auth.properties, roles: [{ roleId: auth.properties.roleId }] }
       )
       .subscribe((response) => {
@@ -61,10 +64,10 @@ export class AuthService {
   active2FA(token: string, secret: string) {
     const accessToken = sessionStorage.getItem('accessToken');
     this.http
-      .post<AuthLoginResponse>(
-        'https://backend-cursos-dev.h7dtvegsb89r2.us-east-1.cs.amazonlightsail.com/v1/auth/enable-2fa',
-        { token, secret }
-      )
+      .post<AuthLoginResponse>(`${this.parameters.apiUrl}/v1/auth/enable-2fa`, {
+        token,
+        secret,
+      })
       .subscribe(() => {
         this.activateResult.update(() => true);
       });
